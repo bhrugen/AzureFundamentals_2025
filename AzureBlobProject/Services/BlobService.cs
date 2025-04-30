@@ -21,7 +21,17 @@ namespace AzureBlobProject.Services
                 ContentType = file.ContentType
             };
 
-            var result = await blobClient.UploadAsync(file.OpenReadStream(),httpHeaders);
+            IDictionary<string, string> metaData = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(blobModel.Title))
+            {
+                metaData.Add("title", blobModel.Title);
+            }
+            if (!string.IsNullOrEmpty(blobModel.Comment))
+            {
+                metaData.Add("comment", blobModel.Comment);
+            }
+
+            var result = await blobClient.UploadAsync(file.OpenReadStream(),httpHeaders,metaData);
 
             if (result != null)
             {
