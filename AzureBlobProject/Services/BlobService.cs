@@ -33,6 +33,11 @@ namespace AzureBlobProject.Services
 
             var result = await blobClient.UploadAsync(file.OpenReadStream(),httpHeaders,metaData);
 
+            //IDictionary<string,string> removeMetaData = new Dictionary<string, string>();
+            
+            //metaData.Remove("title");
+            //await blobClient.SetMetadataAsync(metaData);
+
             if (result != null)
             {
                 return true;
