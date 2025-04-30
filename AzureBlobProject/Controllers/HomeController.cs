@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using AzureBlobProject.Models;
+using AzureBlobProject.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzureBlobProject.Controllers
@@ -7,15 +8,16 @@ namespace AzureBlobProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IContainerService _containerService;
+        public HomeController(ILogger<HomeController> logger, IContainerService containerService)
         {
             _logger = logger;
+            _containerService = containerService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(_containerService.GetAllContainerAndBlobs().GetAwaiter().GetResult());
         }
 
         public IActionResult Privacy()
