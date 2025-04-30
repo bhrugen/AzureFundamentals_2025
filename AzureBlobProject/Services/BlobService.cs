@@ -1,5 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs.Specialized;
+using Azure.Storage.Sas;
 using AzureBlobProject.Models;
 
 namespace AzureBlobProject.Services
@@ -86,6 +88,24 @@ namespace AzureBlobProject.Services
                 {
                     Uri = blobClient.Uri.AbsoluteUri
                 };
+
+                if (blobClient.CanGenerateSasUri)
+                {
+                    BlobSasBuilder blobSasBuilder = new()
+                    {
+                        BlobContainerName = blobClient.GetParentBlobContainerClient().Name,
+                        BlobName = blobClient.Name,
+                        Resource="b",
+                        ExpiresOn = DateTimeOffset.UtcNow.AddHours(1)
+                    };
+
+                    blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
+
+                    blobModel.Uri = blobClient.GenerateSasUri(blobSasBuilder).AbsoluteUri;
+
+                }
+
+
                 BlobProperties properties = await blobClient.GetPropertiesAsync();
                 if (properties.Metadata.ContainsKey("title"))
                 {
