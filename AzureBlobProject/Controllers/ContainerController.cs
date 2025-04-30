@@ -14,7 +14,7 @@ namespace AzureBlobProject.Controllers
         public async Task<IActionResult> Index()
         {
             var allContainer = await _containerService.GetAllContainer();
-            return View();
+            return View(allContainer);
         }
     }
 }
