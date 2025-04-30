@@ -12,7 +12,23 @@ namespace AzureBlobProject.Services
         }
         public async Task<bool> CreateBlob(string name, IFormFile file, string containerName, BlobModel blobModel)
         {
-            throw new NotImplementedException();
+            BlobContainerClient blobContainerClient = _blobClient.GetBlobContainerClient(containerName);
+
+            var blobClient = blobContainerClient.GetBlobClient(name);
+
+            var httpHeaders = new Azure.Storage.Blobs.Models.BlobHttpHeaders()
+            {
+                ContentType = file.ContentType
+            };
+
+            var result = await blobClient.UploadAsync(file.OpenReadStream(),httpHeaders);
+
+            if (result != null)
+            {
+                return true;
+            }
+            return false;
+
         }
 
         public async Task<bool> DeleteBlob(string name, string containerName)
