@@ -80,20 +80,20 @@ namespace AzureBlobProject.Services
             List<BlobModel> blobList = new List<BlobModel>();
             string sasContainerSignature = "";
 
-            if (blobContainerClient.CanGenerateSasUri)
-            {
-                BlobSasBuilder blobSasBuilder = new()
-                {
-                    BlobContainerName = blobContainerClient.Name,
-                    Resource = "c",
-                    ExpiresOn = DateTimeOffset.UtcNow.AddHours(1)
-                };
+            //if (blobContainerClient.CanGenerateSasUri)
+            //{
+            //    BlobSasBuilder blobSasBuilder = new()
+            //    {
+            //        BlobContainerName = blobContainerClient.Name,
+            //        Resource = "c",
+            //        ExpiresOn = DateTimeOffset.UtcNow.AddHours(1)
+            //    };
 
-                blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
+            //    blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
 
-                sasContainerSignature = blobContainerClient.GenerateSasUri(blobSasBuilder).AbsoluteUri.Split('?')[1].ToString();
+            //    sasContainerSignature = blobContainerClient.GenerateSasUri(blobSasBuilder).AbsoluteUri.Split('?')[1].ToString();
 
-            }
+            //}
 
 
             await foreach (var blob in blobs)
@@ -102,7 +102,7 @@ namespace AzureBlobProject.Services
 
                 BlobModel blobModel = new()
                 {
-                    Uri = blobClient.Uri.AbsoluteUri + "?"+sasContainerSignature
+                    Uri = blobClient.Uri.AbsoluteUri //+ "?"+sasContainerSignature
                 };
 
                 //if (blobClient.CanGenerateSasUri)
