@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureFunctionExample", "Azu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionTangyWeb", "AzureFunctionTangyWeb\AzureFunctionTangyWeb.csproj", "{02084AEC-6C61-4C55-B798-6BB531BABBC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TangyAzureFunc", "TangyAzureFunc\TangyAzureFunc.csproj", "{04F087A2-417C-4F42-B88C-C5DE433D3352}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{02084AEC-6C61-4C55-B798-6BB531BABBC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02084AEC-6C61-4C55-B798-6BB531BABBC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02084AEC-6C61-4C55-B798-6BB531BABBC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04F087A2-417C-4F42-B88C-C5DE433D3352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04F087A2-417C-4F42-B88C-C5DE433D3352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04F087A2-417C-4F42-B88C-C5DE433D3352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04F087A2-417C-4F42-B88C-C5DE433D3352}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{44D613C8-92C2-4FB9-B0F1-6E1DC95113D1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{02084AEC-6C61-4C55-B798-6BB531BABBC2} = {D5BB22E3-77B2-4FD1-8536-58C003C06DB3}
+		{04F087A2-417C-4F42-B88C-C5DE433D3352} = {D5BB22E3-77B2-4FD1-8536-58C003C06DB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {563557DC-2C56-4A64-99DC-9DFEFC52896F}
