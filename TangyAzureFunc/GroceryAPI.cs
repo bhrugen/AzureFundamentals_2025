@@ -55,7 +55,7 @@ namespace TangyAzureFunc
         }
 
         [Function("UpdateGrocery")]
-        public async Task<IActionResult> UpdateGrocery([HttpTrigger(AuthorizationLevel.Function, "post", Route = "GroceryList/{id}")] HttpRequest req,string id)
+        public async Task<IActionResult> UpdateGrocery([HttpTrigger(AuthorizationLevel.Function, "put", Route = "GroceryList/{id}")] HttpRequest req,string id)
         {
             _logger.LogInformation("Updating Grocery List Item.");
 
@@ -75,7 +75,7 @@ namespace TangyAzureFunc
         }
 
         [Function("DeleteGrocery")]
-        public async Task<IActionResult> DeleteGrocery([HttpTrigger(AuthorizationLevel.Function, "post", Route = "GroceryList/{id}")] HttpRequest req, string id)
+        public async Task<IActionResult> DeleteGrocery([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "GroceryList/{id}")] HttpRequest req, string id)
         {
             _logger.LogInformation("Delete Grocery List Item.");
 
