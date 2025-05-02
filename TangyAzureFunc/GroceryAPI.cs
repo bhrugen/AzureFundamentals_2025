@@ -25,7 +25,7 @@ namespace TangyAzureFunc
             _logger.LogInformation("Getting Grocery List Items.");
 
 
-            return new OkObjectResult(_dbContext.Grocery.ToList());
+            return new OkObjectResult(_dbContext.GroceryItems.ToList());
         }
 
         [Function("CreateGrocery")]
@@ -39,10 +39,10 @@ namespace TangyAzureFunc
             {
                 Name = data.Name
             };
-            _dbContext.Grocery.Add(groceryItem);
+            _dbContext.GroceryItems.Add(groceryItem);
             _dbContext.SaveChanges();
 
-            return new OkObjectResult(_dbContext.Grocery.ToList());
+            return new OkObjectResult(_dbContext.GroceryItems.ToList());
         }
     }
 }
