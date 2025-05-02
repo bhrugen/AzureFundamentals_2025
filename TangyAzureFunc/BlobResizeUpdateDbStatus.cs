@@ -29,7 +29,7 @@ namespace TangyAzureFunc
 
             if (salesRequest != null)
             {
-                salesRequest.Status="Image Processed";
+                salesRequest.Status= "Image Processed";
                 _dbContext.SaveChanges();
             }
 
