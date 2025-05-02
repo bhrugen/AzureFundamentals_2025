@@ -17,6 +17,7 @@ namespace AzureFunctionTangyWeb.Controllers
         {
             return View();
         }
+        //http://localhost:7183/api/OnSalesUploadWriteToQueue
 
         public IActionResult Privacy()
         {
