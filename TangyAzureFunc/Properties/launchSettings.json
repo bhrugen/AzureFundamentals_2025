@@ -2,7 +2,7 @@
   "profiles": {
     "TangyAzureFunc": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7070"
+      "commandLineArgs": "host start"
     }
   }
 }
