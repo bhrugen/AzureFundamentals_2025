@@ -29,9 +29,10 @@ namespace AzureSpookyLogic.Controllers
         {
             spookyRequest.Id = Guid.NewGuid().ToString();
             using var client = _httpClientFactory.CreateClient();
-            using (var content = new StringContent(JsonConvert.SerializeObject(spookyRequest), System.Text.Encoding.UTF8, "application/json"))
+            var json = JsonConvert.SerializeObject(spookyRequest);
+            using (var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json"))
             {
-                HttpResponseMessage response = await client.PostAsync("LOGIC APP URL", content);
+                HttpResponseMessage response = await client.PostAsync("https://prod-11.northcentralus.logic.azure.com:443/workflows/7c8d0b8c23d9427fbd9e0de13ae33a32/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=C9DsGCSUl7JGtdyYuS0xx-C14AkBUJG1ifAw0RSOmgs", content);
                 string returnValue = await response.Content.ReadAsStringAsync();
 
             }
