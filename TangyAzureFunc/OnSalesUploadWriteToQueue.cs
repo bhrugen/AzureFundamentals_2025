@@ -18,12 +18,13 @@ namespace TangyAzureFunc
         }
 
         [Function("OnSalesUploadWriteToQueue")]
-        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
+        [QueueOutput("SalesRequestOutBound",Connection = "AzureWebJobsStorage")]
+        public async Task<SalesRequest> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             SalesRequest? data = JsonConvert.DeserializeObject<SalesRequest>(requestBody);
             _logger.LogInformation("C# HTTP trigger function processed a request.");
-            return new OkObjectResult("Welcome to Azure Functions!");
+            return data ?? new SalesRequest();
         }
     }
 }
