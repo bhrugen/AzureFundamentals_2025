@@ -1,5 +1,6 @@
 ﻿using AzureFunctionTangyWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace AzureFunctionTangyWeb.Controllers
@@ -25,7 +26,13 @@ namespace AzureFunctionTangyWeb.Controllers
         {
             using var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri("http://localhost:7070/api/");
-            await client.GetAsync("OnSalesUploadWriteToQueue");
+            using (var content = new StringContent(JsonConvert.SerializeObject(salesRequest), System.Text.Encoding.UTF8, "application/json"))
+            {
+                HttpResponseMessage response = await client.PostAsync("OnSalesUploadWriteToQueue",content);
+                string returnValue = await response.Content.ReadAsStringAsync();
+
+            }
+
 
             return RedirectToAction(nameof(Index));
         }
