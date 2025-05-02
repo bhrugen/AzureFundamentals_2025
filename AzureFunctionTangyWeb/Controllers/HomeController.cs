@@ -7,10 +7,11 @@ namespace AzureFunctionTangyWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IHttpClientFactory _httpClientFactory;
+        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
+            _httpClientFactory = httpClientFactory;
         }
 
         public IActionResult Index()
@@ -18,6 +19,16 @@ namespace AzureFunctionTangyWeb.Controllers
             return View();
         }
         //http://localhost:7183/api/OnSalesUploadWriteToQueue
+
+        [HttpPost]
+        public async Task<IActionResult> Index(SalesRequest salesRequest)
+        {
+            using var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri("http://localhost:7070/api/");
+            await client.GetAsync("OnSalesUploadWriteToQueue");
+
+            return RedirectToAction(nameof(Index));
+        }
 
         public IActionResult Privacy()
         {
