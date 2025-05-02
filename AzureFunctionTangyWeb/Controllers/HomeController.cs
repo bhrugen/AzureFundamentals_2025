@@ -24,6 +24,7 @@ namespace AzureFunctionTangyWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(SalesRequest salesRequest)
         {
+            salesRequest.Id = Guid.NewGuid().ToString();
             using var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri("http://localhost:7070/api/");
             using (var content = new StringContent(JsonConvert.SerializeObject(salesRequest), System.Text.Encoding.UTF8, "application/json"))
