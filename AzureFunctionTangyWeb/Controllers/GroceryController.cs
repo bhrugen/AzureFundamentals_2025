@@ -11,14 +11,14 @@ namespace AzureFunctionTangyWeb.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-
-        string GroceryAPIUrl = "http://localhost:7071/api/GroceryList";
+        string MasterKey = "?code=KANfBRmYJZRLdojf3ZRo3egfMq5TP-YeDsp2NTaIY4eUAzFuiiK9Vg==";
+        string GroceryAPIUrl = "https://tangyazurefunction.azurewebsites.net/api/GroceryList";
         // GET: GroceryController
         public async Task<ActionResult> Index()
         {
             using var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(GroceryAPIUrl);
-            HttpResponseMessage response = await client.GetAsync(GroceryAPIUrl);
+            HttpResponseMessage response = await client.GetAsync(GroceryAPIUrl+MasterKey);
             string returnValue = response.Content.ReadAsStringAsync().Result;
             List<GroceryItem> groceryListToReturn = JsonConvert.DeserializeObject<List<GroceryItem>>(returnValue);
             return View(groceryListToReturn);
@@ -43,7 +43,7 @@ namespace AzureFunctionTangyWeb.Controllers
                 {
                     using var client = _httpClientFactory.CreateClient();
                     client.BaseAddress = new Uri(GroceryAPIUrl);
-                    HttpResponseMessage response = await client.PostAsync(GroceryAPIUrl, content);
+                    HttpResponseMessage response = await client.PostAsync(GroceryAPIUrl + MasterKey, content);
                     string returnValue = response.Content.ReadAsStringAsync().Result;
                 }
                 return RedirectToAction(nameof(Index));
@@ -59,7 +59,7 @@ namespace AzureFunctionTangyWeb.Controllers
         {
             using var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(GroceryAPIUrl);
-            HttpResponseMessage response = await client.GetAsync(GroceryAPIUrl + "/" + id);
+            HttpResponseMessage response = await client.GetAsync(GroceryAPIUrl + "/" + id+MasterKey);
             string returnValue = response.Content.ReadAsStringAsync().Result;
             GroceryItem groceryItem = JsonConvert.DeserializeObject<GroceryItem>(returnValue);
             return View(groceryItem);
@@ -77,7 +77,7 @@ namespace AzureFunctionTangyWeb.Controllers
                 {
                     using var client = _httpClientFactory.CreateClient();
                     client.BaseAddress = new Uri(GroceryAPIUrl);
-                    HttpResponseMessage response = await client.PutAsync(GroceryAPIUrl + "/" + obj.Id, content);
+                    HttpResponseMessage response = await client.PutAsync(GroceryAPIUrl + "/" + obj.Id + MasterKey, content);
                     string returnValue = response.Content.ReadAsStringAsync().Result;
                 }
                 return RedirectToAction(nameof(Index));
@@ -93,7 +93,7 @@ namespace AzureFunctionTangyWeb.Controllers
         {
             using var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(GroceryAPIUrl);
-            HttpResponseMessage response = await client.GetAsync(GroceryAPIUrl + "/" + id);
+            HttpResponseMessage response = await client.GetAsync(GroceryAPIUrl + "/" + id + MasterKey);
             string returnValue = response.Content.ReadAsStringAsync().Result;
             GroceryItem groceryItem = JsonConvert.DeserializeObject<GroceryItem>(returnValue);
             return View(groceryItem);
@@ -109,7 +109,7 @@ namespace AzureFunctionTangyWeb.Controllers
             {
                 using var client = _httpClientFactory.CreateClient();
                 client.BaseAddress = new Uri(GroceryAPIUrl);
-                HttpResponseMessage response = await client.DeleteAsync(GroceryAPIUrl + "/" + id);
+                HttpResponseMessage response = await client.DeleteAsync(GroceryAPIUrl + "/" + id + MasterKey);
                 string returnValue = response.Content.ReadAsStringAsync().Result;
                 return RedirectToAction(nameof(Index));
             }

@@ -30,7 +30,7 @@ namespace AzureFunctionTangyWeb.Controllers
         {
             salesRequest.Id = Guid.NewGuid().ToString();
             using var client = _httpClientFactory.CreateClient();
-            client.BaseAddress = new Uri("http://localhost:7071/api/");
+            client.BaseAddress = new Uri("https://tangyazurefunction.azurewebsites.net/api/");
             using (var content = new StringContent(JsonConvert.SerializeObject(salesRequest), System.Text.Encoding.UTF8, "application/json"))
             {
                 HttpResponseMessage response = await client.PostAsync("OnSalesUploadWriteToQueue",content);
